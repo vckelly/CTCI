@@ -1,0 +1,18 @@
+[
+  "test_string_algs.py::test_hash_init",
+  "test_string_algs.py::test_hash_insert_get",
+  "test_string_algs.py::test_hash_delete",
+  "test_string_algs.py::test_hash_delete_invalid",
+  "test_string_algs.py::test_print_table",
+  "test_string_algs.py::test_is_unique",
+  "test_string_algs.py::test_naive_is_unique",
+  "test_string_algs.py::test_is_permutation",
+  "test_string_algs.py::test_naive_is_permutation",
+  "test_string_algs.py::test_URLify",
+  "test_string_algs.py::test_naive_URLify",
+  "test_string_algs.py::test_palindrome_permutation",
+  "test_string_algs.py::test_one_away",
+  "test_string_algs.py::test_string_compression",
+  "test_string_algs.py::test_matrix_zero",
+  "test_string_algs.py::test_rotate_matrix"
+]

@@ -1,0 +1,10 @@
+[
+  "test_ll_algos.py::test_remove_dups",
+  "test_ll_algos.py::test_kth_to_last",
+  "test_ll_algos.py::test_partition",
+  "test_ll_algos.py::test_sum_lists",
+  "test_ll_algos.py::test_is_palindrome",
+  "test_ll_algos.py::test_is_palindrome_invalid",
+  "test_ll_algos.py::test_intersection",
+  "test_ll_algos.py::test_intersection_invalid"
+]

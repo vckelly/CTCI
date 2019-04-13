@@ -1,0 +1,7 @@
+{
+  "test_ll.py::test_delete": true,
+  "test_ll.py::test_delete_at_index": true,
+  "test_ll.py::test_print_vals": true,
+  "test_ll_algos.py::test_intersection": true,
+  "test_ll_algos.py::test_intersection_invalid": true
+}

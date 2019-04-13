@@ -1,0 +1,12 @@
+[
+  "test_sq.py::test_stack_init",
+  "test_sq.py::test_stack_pop",
+  "test_sq.py::test_stack_push",
+  "test_sq.py::test_stack_peek",
+  "test_sq.py::test_stack_min",
+  "test_sq.py::test_SoS_pop",
+  "test_sq.py::test_SoS_push",
+  "test_sq.py::test_queue_init",
+  "test_sq.py::test_queue_add",
+  "test_sq.py::test_queue_remove"
+]
