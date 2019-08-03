@@ -82,6 +82,8 @@ def distinctList(input_list):
     print(res)
 
     #how would you do this without using "in"? python makes this trivial
+    #you could find the max value in the list and then create an array of
+    #that size and simply add elements by index. This would be O(2n)?
 
 #7. Return distinct values and their counts from a list 
 # i.e. for [1, 1, 2, 3, 3, 3, 5] you would return "1(2) 2(1) 3(3) 5(1)"
