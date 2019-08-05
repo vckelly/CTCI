@@ -44,7 +44,7 @@ def sum_lists(list1, list2):
             raise ValueError("Addition went wrong!")
         
         if cur_val > 9 and i == 1:
-            cur_val -=10
+            cur_val -= 10
             sum_res.append_to_tail(cur_val)
             carry = 1
     
@@ -54,7 +54,7 @@ def sum_lists(list1, list2):
             carry = 2
         
         elif cur_val > 9:
-            cur_val -=10
+            cur_val -= 10
             sum_res.append_to_tail(cur_val + carry)
             carry = 1 
             

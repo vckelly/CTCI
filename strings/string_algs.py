@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import time
 from collections import Counter
 
@@ -351,6 +353,4 @@ def rotate_matrix(matrix):
     for i in range(len(matrix)):                
         print(matrix[i])
         
-    
-    
     
