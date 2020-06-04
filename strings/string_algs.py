@@ -181,7 +181,46 @@ def naive_URLify(string1, length):
            
     return ''.join(res)
 
-   
+def reverse_string(string1):
+    if len(string1) == 1:
+        return string1
+
+    out = [None for i in range(len(string1))]
+
+    ptr1 = 0
+    ptr2 = len(string1)-1
+
+    while ptr2 >= ptr1:
+        out[ptr1] = string1[ptr2] 
+        out[ptr2] = string1[ptr1]
+        ptr1 += 1
+        ptr2 -= 1
+
+    return "".join(out)
+
+def reverse_string_noArr(string1):
+    if len(string1) == 1:
+        return string1
+
+    out = ""
+
+    ptr1 = 0
+    ptr2 = len(string1)-1
+
+    while ptr2 >= ptr1:
+        if ptr1 > 0:
+            firstHalf = out[:ptr1]
+            firstHalf = firstHalf + string1[ptr2]
+            secondHalf = out[ptr1:]
+            secondHalf = string1[ptr2] + secondHalf 
+            out = firstHalf + secondHalf
+        else:
+            out = string1[ptr2] + string1[ptr1]
+        ptr1 += 1
+        ptr2 -= 1
+
+    return out
+
 def is_palindrome_permutation(string1):
     
     #1. If string is only one character, return True
@@ -354,3 +393,11 @@ def rotate_matrix(matrix):
         print(matrix[i])
         
     
+def main():
+    myStr = "hello"
+    print("Reversed str is " + reverse_string(myStr))
+    print("Reversed str is " + reverse_string_noArr(myStr))
+
+
+if __name__ == "__main__":
+    main()

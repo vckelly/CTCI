@@ -87,19 +87,19 @@ def intersection(list1, list2):
     #get length and tail of list1
     len_1 = list1.get_size()
     cur = list1.head
-    for i in range(len_1):
+    for i in range(len_1-1):
         cur = cur.get_next()
     tail_1 = cur
     
     #get length and tail of list2
     len_2 = list2.get_size()
     current = list2.head
-    for i in range(len_2):
+    for i in range(len_2-1):
         current = current.get_next()
     tail_2 = current
     
-    #if tails are different (by reference) return False
-    if tail_1 is not tail_2:
+    #if tails are different (by value) return False
+    if tail_1.get_data() is not tail_2.get_data():
         return False
         
     #set pointers to head of lists
@@ -107,15 +107,17 @@ def intersection(list1, list2):
     cur2 = list2.head
     
     #set the pointer for the longer of the two lists
-    #at the start of the common nodes between both lists
+    #at the same length of the shorter list
     if len_1 > len_2:
-        for i in range((len_1 - len_2) + 1):
+        for i in range((len_1 - len_2)):
             cur1 = cur1.get_next()
     else:
-        for i in range((len_2 - len_1) + 1):
+        for i in range((len_2 - len_1)):
             cur2 = cur2.get_next()
     
-    while cur1 != cur2:
+    #assert cur1.get_data() == 2
+    #assert cur2.get_data() == 2
+    while cur1.get_data() != cur2.get_data():
         cur1 = cur1.get_next()
         cur2 = cur2.get_next()
         if cur1 == None or cur2 == None:
@@ -125,6 +127,26 @@ def intersection(list1, list2):
         raise ValueError("Returning Non Node Object")
     
     return cur1
+
+def detectLoop(list1):
+    slow = fast = list1.head
+
+    while fast != None and fast.get_next() != None:
+        slow = slow.get_next()
+        fast = fast.get_next()\
+                   .get_next()
+        if slow == fast:
+            break
+    
+    # if fast == None or slow == None:
+    #     return None
+    
+    slow = list1.head
+    while slow != fast:
+        slow = slow.get_next()
+        fast = fast.get_next()
+
+    return fast
     
         
         

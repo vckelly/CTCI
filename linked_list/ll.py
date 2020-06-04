@@ -208,6 +208,14 @@ class SLinkedList(object):
         
         return False
 
+    def get_node_at_index(self, idx):
+        if not self.head:
+            return False
+        cur = self.head
+        for i in range(idx):
+            cur = cur.get_next()
+        return cur
+
 class DLinkedList(SLinkedList):
     
     def __init__(self, head=None, tail=None):
