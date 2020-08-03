@@ -2,7 +2,6 @@ from .trees import BSNode, Graph, GraphNode, Tree, BSTree, Queue, \
                    inOrderTraversal, preOrderTraversal, postOrderTraversal, \
                    DFS, BFS
 
-
 # Given a directed graph, determine if there
 # is a route between two nodes
 def routeBetweenNodes(graph, n1, n2):
@@ -34,7 +33,7 @@ def _createMinimalBST(nArray, start, end):
         return None
     mid = (start + end) / 2
 
-    n = BSNode(data=nArray[mid])
+    n = nArray[mid]
     n.left = _createMinimalBST(nArray, start, mid - 1)
     n.right = _createMinimalBST(nArray, mid + 1, end)
     return n

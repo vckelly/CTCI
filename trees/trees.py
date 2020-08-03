@@ -111,6 +111,16 @@ class BSTree(object):
         else:
             self.root = BSNode(data)
 
+    def getHeight(self, node):
+        if node.left and node.right:
+            return max(self.getHeight(node.left), self.getHeight(node.right)) + 1
+        elif node.left and not node.right:
+            return self.getHeight(node.left) + 1
+        elif node.right and not node.left:
+            return self.getHeight(node.right) + 1
+        else:
+            return 0
+
 class AVLTree(object):
     def __init__(self, data=None, rNode=None):
         if rNode:
