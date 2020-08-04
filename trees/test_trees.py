@@ -1,7 +1,7 @@
 
 from .trees import Node, BSNode, GraphNode, Graph, Tree, \
                    BSTree, MinHeap    
-from .tree_algs import routeBetweenNodes, createMinimalBST 
+from .tree_algs import routeBetweenNodes, createMinimalBST, listOfDepths
  
 import pytest
 import copy 
@@ -57,8 +57,25 @@ def test_minimalBST():
     myT = createMinimalBST(nodes)
     assert isinstance(myT, BSTree)
     assert isinstance(myT.root, BSNode)
-    assert myT.root.data == 5
-    assert myT.getHeight(myT.root) == 4
+    assert myT.root.data == 4
+    assert myT.getHeight(myT.root) == 3
+
+def test_BST_Print():
+    nodes = copy.copy(BSTNodes)
+    myT = createMinimalBST(nodes)
+    myT.printTree(myT.root)
+    #assert False
+
+def test_listOfDepths():
+    nodes = copy.copy(BSTNodes)
+    myT = createMinimalBST(nodes)
+    lists = listOfDepths(myT)
+    for i in range(len(lists)):
+        lists[i] = [n.data for n in lists[i]]
+    assert lists[0] == [4]
+    assert lists[1] == [1, 7]
+    assert lists[2] == [0, 2, 5, 8]
+    assert lists[3] == [3, 6, 9]
     
 
 # def test_stack_init():

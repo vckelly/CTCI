@@ -1,7 +1,7 @@
 from .trees import BSNode, Graph, GraphNode, Tree, BSTree, Queue, \
                    inOrderTraversal, preOrderTraversal, postOrderTraversal, \
                    DFS, BFS
-
+import math
 # Given a directed graph, determine if there
 # is a route between two nodes
 def routeBetweenNodes(graph, n1, n2):
@@ -29,9 +29,9 @@ def createMinimalBST(nArray):
     return BSTree(rNode=_createMinimalBST(nArray, 0, len(nArray)-1))
 
 def _createMinimalBST(nArray, start, end):
-    if start < end:
+    if end < start:
         return None
-    mid = (start + end) / 2
+    mid = math.floor((start + end) / 2)
 
     n = nArray[mid]
     n.left = _createMinimalBST(nArray, start, mid - 1)
@@ -39,4 +39,27 @@ def _createMinimalBST(nArray, start, end):
     return n
 
 
+#Given a binary tree, return a list of lists where each
+#list represents the nodes at each level of the binary tree
 
+def listOfDepths(bTree):
+    lists = []
+    _listOfDepths(bTree.root, lists, 0)
+    # for i, x in enumerate(lists):
+    #     cur = [n.data for n in x]
+    #     print(i, cur)  
+    return lists
+
+def _listOfDepths(root, lists, level):
+    if not root: 
+        return
+    newList = None
+    if len(lists) == level:
+        newList = []
+        lists.append(newList)
+    else:
+        newList = lists[level]
+    
+    newList.append(root)
+    _listOfDepths(root.left, lists, level+1)
+    _listOfDepths(root.right, lists, level+1)

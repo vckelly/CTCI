@@ -120,6 +120,13 @@ class BSTree(object):
             return self.getHeight(node.right) + 1
         else:
             return 0
+    def printTree(self, node):
+        if not node:
+            return 
+        else:
+            print('Val: ' + str(node.data) + '  Height: ' + str(self.getHeight(node)))
+            self.printTree(node.left)
+            self.printTree(node.right)
 
 class AVLTree(object):
     def __init__(self, data=None, rNode=None):
