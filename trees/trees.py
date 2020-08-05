@@ -120,6 +120,25 @@ class BSTree(object):
             return self.getHeight(node.right) + 1
         else:
             return 0
+
+    def isBalanced(self, node):
+        if not node:
+            return True
+
+        flag = True 
+        if node.left and node.right:
+            if abs(self.getHeight(node.left) - self.getHeight(node.right)) > 1:
+                return False
+        elif node.left and not node.right:
+            flag = False if self.getHeight(node.left) > 1 else True 
+        elif node.right and not node.left:
+            flag = False if self.getHeight(node.right) > 1 else True
+
+        if flag:
+            return self.isBalanced(node.left) and self.isBalanced(node.right)
+        else:
+            return False
+
     def printTree(self, node):
         if not node:
             return 

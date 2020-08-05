@@ -63,3 +63,37 @@ def _listOfDepths(root, lists, level):
     newList.append(root)
     _listOfDepths(root.left, lists, level+1)
     _listOfDepths(root.right, lists, level+1)
+
+#Given a root node of a BST, validate that it is a 
+#valid BST
+
+#TODO fix func
+# def validateBST(node, lastInt):
+#     if not node:
+#         return True
+    
+#     if not validateBST(node.left, lastInt):
+#         return False
+
+#     lastInt = node.data
+    
+#     if lastInt and not validateBST(node.right, lastInt):
+#         return False
+
+#     return True
+
+def validateBST(node):
+    return _validateBST(node, None, None)
+
+def _validateBST(node, min, max):
+    if not node:
+        return True
+
+    if (min != None and node.data <= min) or (max != None and node.data > max):
+        return False
+    
+    if (not _validateBST(node.left, min, node.data)) or \
+        not _validateBST(node.right, node.data, max):
+        return False
+    
+    return True

@@ -1,7 +1,7 @@
 
 from .trees import Node, BSNode, GraphNode, Graph, Tree, \
                    BSTree, MinHeap    
-from .tree_algs import routeBetweenNodes, createMinimalBST, listOfDepths
+from .tree_algs import routeBetweenNodes, createMinimalBST, listOfDepths, validateBST
  
 import pytest
 import copy 
@@ -77,6 +77,53 @@ def test_listOfDepths():
     assert lists[2] == [0, 2, 5, 8]
     assert lists[3] == [3, 6, 9]
     
+def test_isBalanced():
+    nodes = copy.copy(BSTNodes)
+    myT = createMinimalBST(nodes)
+
+    unbalanced = []
+    for i in range(5):
+        n = BSNode(data=i)
+        unbalanced.append(n)
+        if i != 0:
+            unbalanced[i-1].right = n
+
+    unbalancedT = BSTree(rNode=unbalanced[0])
+    
+    assert myT.isBalanced(myT.root)
+    assert not unbalancedT.isBalanced(unbalancedT.root)
+    
+    unbalanced = []
+    for i in range(5):
+        n = BSNode(data=i)
+        unbalanced.append(n)
+        if i > 1:
+            unbalanced[i-1].right = n
+        else:
+            unbalanced[i-1].left = n
+        
+    unbalancedT = BSTree(rNode=unbalanced[0])
+    assert not unbalancedT.isBalanced(unbalancedT.root)
+
+def test_vaildateBST():
+    nodes = copy.copy(BSTNodes)
+    myT = createMinimalBST(nodes)
+    assert validateBST(myT.root)
+
+    notValid = []
+    for i in range(5):
+        n = BSNode(data=i)
+        notValid.append(n)
+        if i > 0:
+            if i % 2 == 0:
+                notValid[i-1].left = n
+            else:
+                notValid[i-1].right = n
+    assert isinstance(notValid[4], BSNode)
+    assert notValid[3].left == notValid[4]
+    myT = BSTree(rNode=notValid[0])        
+    assert not validateBST(myT.root)
+
 
 # def test_stack_init():
 #     stack_test = Stack(1)
