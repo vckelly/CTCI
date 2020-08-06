@@ -1,5 +1,5 @@
-from .trees import BSNode, Graph, GraphNode, Tree, BSTree, Queue, \
-                   inOrderTraversal, preOrderTraversal, postOrderTraversal, \
+from .trees import BSNode, AVLNode, Graph, GraphNode, Tree, BSTree, AVLTree, Queue, \
+                   inOrderTraversal, preOrderTraversal, postOrderTraversal, visit,\
                    DFS, BFS
 import math
 # Given a directed graph, determine if there
@@ -97,3 +97,24 @@ def _validateBST(node, min, max):
         return False
     
     return True
+
+def successor(node):
+    if not node: 
+        return None
+
+    if node.right:
+        return leftMostChild(node.right)
+    else:
+        q = node
+        x = q.parent
+        while x and x.left != q:
+            q = x
+            x = x.parent
+        return x
+    
+def leftMostChild(node):
+    if not node:
+        return None
+    while node.left:
+        node = node.left
+    return node

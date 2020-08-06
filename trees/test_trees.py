@@ -1,7 +1,8 @@
 
-from .trees import Node, BSNode, GraphNode, Graph, Tree, \
-                   BSTree, MinHeap    
-from .tree_algs import routeBetweenNodes, createMinimalBST, listOfDepths, validateBST
+from .trees import Node, BSNode, AVLNode, GraphNode, Graph, Tree, \
+                   BSTree, AVLTree, MinHeap    
+from .tree_algs import routeBetweenNodes, createMinimalBST, listOfDepths, validateBST, \
+                       successor
  
 import pytest
 import copy 
@@ -13,6 +14,10 @@ BSTNodes = []
 for i in range(10):
     n = BSNode(data=i)
     BSTNodes.append(n)
+
+avl = AVLTree(data=0)
+for i in range(1, 10):
+    avl.root.insert(AVLNode(data=i))
 
 nodes = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 gNodes = []
@@ -124,6 +129,15 @@ def test_vaildateBST():
     myT = BSTree(rNode=notValid[0])        
     assert not validateBST(myT.root)
 
+def test_successor():
+    myAvl = copy.copy(avl)
+    assert isinstance(myAvl, AVLTree)
+    assert myAvl.root.right.data == 1
+    assert successor(myAvl.root).data == 1
+
+    nodes = copy.copy(BSTNodes)
+    myT = createMinimalBST(nodes)
+    assert successor(myT.root).data == 5
 
 # def test_stack_init():
 #     stack_test = Stack(1)
