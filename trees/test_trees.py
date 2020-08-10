@@ -2,7 +2,7 @@
 from .trees import Node, BSNode, AVLNode, GraphNode, Graph, Tree, \
                    BSTree, AVLTree, MinHeap    
 from .tree_algs import routeBetweenNodes, createMinimalBST, listOfDepths, validateBST, \
-                       successor
+                       successor, topologicalSort
  
 import pytest
 import copy 
@@ -68,7 +68,7 @@ def test_minimalBST():
 def test_BST_Print():
     nodes = copy.copy(BSTNodes)
     myT = createMinimalBST(nodes)
-    myT.printTree(myT.root)
+    #myT.printTree(myT.root)
     #assert False
 
 def test_listOfDepths():
@@ -138,6 +138,41 @@ def test_successor():
     nodes = copy.copy(BSTNodes)
     myT = createMinimalBST(nodes)
     assert successor(myT.root).data == 5
+
+def test_topoSort():
+    nodes = []
+    for ch in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']:
+        n = Node(data=ch)
+        nodes.append(n)
+    #A
+    nodes[0].parent = [nodes[5], nodes[2], nodes[1]]
+    nodes[0].children = [nodes[4]]
+    #B
+    nodes[1].parent = [nodes[5]]
+    nodes[1].children = [nodes[4], nodes[0], nodes[7]]
+    #C
+    nodes[2].parent = [nodes[5]]
+    nodes[2].children = [nodes[0]]
+    #D
+    nodes[3].parent = []
+    nodes[3].children = [nodes[6]]
+    #E
+    nodes[4].parent = [nodes[0], nodes[1]]
+    nodes[4].children = []
+    #F
+    nodes[5].parent = []
+    nodes[5].children = [nodes[2], nodes[1], nodes[0]]
+    #G
+    nodes[6].parent = [nodes[3]]
+    nodes[6].children = []
+    #H
+    nodes[7].parent = [nodes[1]]
+    nodes[7].children = []
+
+    g = Graph(nodes=nodes)
+
+    assert topologicalSort(g)
+
 
 # def test_stack_init():
 #     stack_test = Stack(1)

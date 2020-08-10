@@ -6,6 +6,8 @@ class Node(object):
     def __init__(self, data=None):
         self.data = data if data else None
         self.children = []
+        self.parent = []
+        self.status = 'BLANK'
 
 class BSNode(object):
     def __init__(self, data=None):

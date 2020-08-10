@@ -118,3 +118,34 @@ def leftMostChild(node):
     while node.left:
         node = node.left
     return node
+
+def topologicalSort(inpGraph):
+    #pick any node, perform DFS on it. That node is marked PARTIAL
+    #check on any children nodes that none are listed as PARTIAL...
+    #otherwise we have a cycle.
+    #Continue DFS until we reach end of path. Add that node to build order. 
+    #Return through call stack, adding nodes as their children are added to the build order.
+    buildOrder = []
+    for node in inpGraph.getNodes():
+        if node.status is "BLANK":
+            if not doDFS(node, buildOrder):
+                return None
+    for i in buildOrder:
+        print(i.data)
+    return buildOrder
+
+
+def doDFS(node, stack):
+    if node.status is "PARTIAL":
+        return False
+
+    if node.status is "BLANK":
+        node.status = "PATRIAL"
+        children = node.children
+        for n in children:
+            if not doDFS(n, stack):
+                return False
+        node.status = "DONE"
+        stack.append(node)
+    return True
+
