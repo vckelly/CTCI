@@ -2,7 +2,7 @@
 from .trees import Node, BSNode, AVLNode, GraphNode, Graph, Tree, \
                    BSTree, AVLTree, MinHeap    
 from .tree_algs import routeBetweenNodes, createMinimalBST, listOfDepths, validateBST, \
-                       successor, topologicalSort
+                       successor, topologicalSort, firstCommonAncestor
  
 import pytest
 import copy 
@@ -93,7 +93,7 @@ def test_isBalanced():
         if i != 0:
             unbalanced[i-1].right = n
 
-    unbalancedT = BSTree(rNode=unbalanced[0])
+    unbalancedT = BSTree(root=unbalanced[0])
     
     assert myT.isBalanced(myT.root)
     assert not unbalancedT.isBalanced(unbalancedT.root)
@@ -107,7 +107,7 @@ def test_isBalanced():
         else:
             unbalanced[i-1].left = n
         
-    unbalancedT = BSTree(rNode=unbalanced[0])
+    unbalancedT = BSTree(root=unbalanced[0])
     assert not unbalancedT.isBalanced(unbalancedT.root)
 
 def test_vaildateBST():
@@ -126,7 +126,7 @@ def test_vaildateBST():
                 notValid[i-1].right = n
     assert isinstance(notValid[4], BSNode)
     assert notValid[3].left == notValid[4]
-    myT = BSTree(rNode=notValid[0])        
+    myT = BSTree(root=notValid[0])        
     assert not validateBST(myT.root)
 
 def test_successor():
@@ -139,37 +139,38 @@ def test_successor():
     myT = createMinimalBST(nodes)
     assert successor(myT.root).data == 5
 
-def test_topoSort():
-    nodes = []
-    for ch in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']:
-        n = Node(data=ch)
-        nodes.append(n)
-    #A
-    nodes[0].parent = [nodes[5], nodes[2], nodes[1]]
-    nodes[0].children = [nodes[4]]
-    #B
-    nodes[1].parent = [nodes[5]]
-    nodes[1].children = [nodes[4], nodes[0], nodes[7]]
-    #C
-    nodes[2].parent = [nodes[5]]
-    nodes[2].children = [nodes[0]]
-    #D
-    nodes[3].parent = []
-    nodes[3].children = [nodes[6]]
-    #E
-    nodes[4].parent = [nodes[0], nodes[1]]
-    nodes[4].children = []
-    #F
-    nodes[5].parent = []
-    nodes[5].children = [nodes[2], nodes[1], nodes[0]]
-    #G
-    nodes[6].parent = [nodes[3]]
-    nodes[6].children = []
-    #H
-    nodes[7].parent = [nodes[1]]
-    nodes[7].children = []
+nodes = []
+for ch in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']:
+    n = Node(data=ch)
+    nodes.append(n)
+#A
+nodes[0].parent = [nodes[5], nodes[2], nodes[1]]
+nodes[0].children = [nodes[4]]
+#B
+nodes[1].parent = [nodes[5]]
+nodes[1].children = [nodes[4], nodes[0], nodes[7]]
+#C
+nodes[2].parent = [nodes[5]]
+nodes[2].children = [nodes[0]]
+#D
+nodes[3].parent = []
+nodes[3].children = [nodes[6]]
+#E
+nodes[4].parent = [nodes[0], nodes[1]]
+nodes[4].children = []
+#F
+nodes[5].parent = []
+nodes[5].children = [nodes[2], nodes[1], nodes[0]]
+#G
+nodes[6].parent = [nodes[3]]
+nodes[6].children = []
+#H
+nodes[7].parent = [nodes[1]]
+nodes[7].children = []
 
-    g = Graph(nodes=nodes)
+def test_topoSort():
+    n = copy.copy(nodes)
+    g = Graph(nodes=n)
     res = topologicalSort(g)
     #print(" ".join(i.data for i in res))
     strs = [i.data for i in res]
@@ -178,3 +179,13 @@ def test_topoSort():
     assert strs.index("A") > strs.index("C")
     assert strs.index("F") < strs.index("B")
 
+def test_firstCommonAncestor():
+    n = copy.copy(BSTNodes)
+    myT = createMinimalBST(n)
+    myT.addParents(myT.root)
+
+    assert firstCommonAncestor(myT.root.left.left, myT.root.left.right) \
+        is myT.root.left
+
+    assert firstCommonAncestor(myT.root.left.left, myT.root.right.right) \
+    is myT.root

@@ -26,7 +26,7 @@ def routeBetweenNodes(graph, n1, n2):
     return False
 
 def createMinimalBST(nArray):
-    return BSTree(rNode=_createMinimalBST(nArray, 0, len(nArray)-1))
+    return BSTree(root=_createMinimalBST(nArray, 0, len(nArray)-1))
 
 def _createMinimalBST(nArray, start, end):
     if end < start:
@@ -148,3 +148,31 @@ def doDFS(node, stack):
         stack.append(node)
     return True
 
+def firstCommonAncestor(p, q):
+    delta = depth(p) - depth(q)
+    first = q if delta > 0 else p
+    second = p if delta > 0 else q
+    second = goUpBy(second, abs(delta))
+
+    while first is not second and first and second: 
+        first = first.parent
+        second = second.parent
+    
+    if not first or not second:
+        return None
+
+    return first
+
+
+def goUpBy(node, delta):
+    while delta > 0 and node:
+        node = node.parent
+        delta -=1
+    return node
+
+def depth(node):
+    depth = 0
+    while node:
+        node = node.parent
+        depth += 1
+    return depth

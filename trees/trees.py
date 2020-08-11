@@ -3,16 +3,17 @@ sys.path.append(os.path.abspath(os.path.join('..', 'stack_queues')))
 from q1 import Queue
 
 class Node(object):
-    def __init__(self, data=None):
+    def __init__(self, data=None, children=None, parent=None):
         self.data = data if data else None
-        self.children = []
-        self.parent = []
+        self.children = children
+        self.parent = parent
         self.status = 'BLANK'
 
 class BSNode(object):
     def __init__(self, data=None):
         self.data = data 
         self.left = self.right = None
+        self.parent = None
 
 
 class AVLNode(object):
@@ -100,16 +101,16 @@ class Graph(object):
         return self.nodes
 
 class Tree(object):
-    def __init__(self, data=None, rNode=None):
-        if rNode:
-            self.root = rNode
+    def __init__(self, data=None, root=None):
+        if root:
+            self.root = root
         else:
             self.root = Node(data)
 
 class BSTree(object):
-    def __init__(self, data=None, rNode=None):
-        if rNode:
-            self.root = rNode
+    def __init__(self, data=None, root=None):
+        if root:
+            self.root = root
         else:
             self.root = BSNode(data)
 
@@ -148,11 +149,25 @@ class BSTree(object):
             print('Val: ' + str(node.data) + '  Height: ' + str(self.getHeight(node)))
             self.printTree(node.left)
             self.printTree(node.right)
+    
+    def addParents(self, node):
+        if not node:
+            return
+        if node.left:
+            node.left.parent = node
+            self.addParents(node.left)
+        if node.right:
+            node.right.parent = node
+            self.addParents(node.right)
+
+
+
+
 
 class AVLTree(object):
-    def __init__(self, data=None, rNode=None):
-        if rNode:
-            self.root = rNode
+    def __init__(self, data=None, root=None):
+        if root:
+            self.root = root
         else:
             self.root = AVLNode(data)
 
