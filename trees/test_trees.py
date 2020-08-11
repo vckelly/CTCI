@@ -170,8 +170,13 @@ def test_topoSort():
     nodes[7].children = []
 
     g = Graph(nodes=nodes)
-
-    assert topologicalSort(g)
+    res = topologicalSort(g)
+    #print(" ".join(i.data for i in res))
+    strs = [i.data for i in res]
+    assert strs.index("E") > strs.index("A")
+    assert strs.index("G") > strs.index("D")
+    assert strs.index("A") > strs.index("C")
+    assert strs.index("F") < strs.index("B")
 
 
 # def test_stack_init():

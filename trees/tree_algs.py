@@ -130,9 +130,8 @@ def topologicalSort(inpGraph):
         if node.status is "BLANK":
             if not doDFS(node, buildOrder):
                 return None
-    for i in buildOrder:
-        print(i.data)
-    return buildOrder
+            #print(" ".join([i.data for i in buildOrder]))
+    return buildOrder[::-1]
 
 
 def doDFS(node, stack):
@@ -140,7 +139,7 @@ def doDFS(node, stack):
         return False
 
     if node.status is "BLANK":
-        node.status = "PATRIAL"
+        node.status = "PARTIAL"
         children = node.children
         for n in children:
             if not doDFS(n, stack):
