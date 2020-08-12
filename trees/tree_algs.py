@@ -133,7 +133,7 @@ def topologicalSort(inpGraph):
             #print(" ".join([i.data for i in buildOrder]))
     return buildOrder[::-1]
 
-
+#Helper for topological sort
 def doDFS(node, stack):
     if node.status is "PARTIAL":
         return False
@@ -148,6 +148,7 @@ def doDFS(node, stack):
         stack.append(node)
     return True
 
+#Given two nodes, return the first common ancestor between them
 def firstCommonAncestor(p, q):
     delta = depth(p) - depth(q)
     first = q if delta > 0 else p
@@ -163,16 +164,45 @@ def firstCommonAncestor(p, q):
 
     return first
 
-
+#Helper for firstCommonAncestor
 def goUpBy(node, delta):
     while delta > 0 and node:
         node = node.parent
         delta -=1
     return node
 
+#Helper for firstCommonAncestor
 def depth(node):
     depth = 0
     while node:
         node = node.parent
         depth += 1
     return depth
+
+#Similar to firstCommonAncestor, but without using
+#links to parents
+def commonAncestor(root, p, q):
+    if not covers(root, p) or not covers(root, q):
+        return None
+    return ancestorHelper(root, p, q)
+
+#Helper for commonAncestor
+def ancestorHelper(root, p, q):
+    if not root or root is p or root is q:
+        return root
+
+    pIsOnLeft = covers(root.left, p)
+    qIsOnLeft = covers(root.left, q)
+
+    if pIsOnLeft is not qIsOnLeft:
+        return root
+
+    childSide = root.left if pIsOnLeft else root.right
+    return ancestorHelper(childSide, p, q)
+
+def covers(root, p):
+    if not root:
+        return False
+    if root is p:
+        return True
+    return covers(root.left, p) or covers(root.right, p)

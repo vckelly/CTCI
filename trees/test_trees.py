@@ -2,7 +2,7 @@
 from .trees import Node, BSNode, AVLNode, GraphNode, Graph, Tree, \
                    BSTree, AVLTree, MinHeap    
 from .tree_algs import routeBetweenNodes, createMinimalBST, listOfDepths, validateBST, \
-                       successor, topologicalSort, firstCommonAncestor
+                       successor, topologicalSort, firstCommonAncestor, commonAncestor
  
 import pytest
 import copy 
@@ -188,4 +188,15 @@ def test_firstCommonAncestor():
         is myT.root.left
 
     assert firstCommonAncestor(myT.root.left.left, myT.root.right.right) \
+    is myT.root
+
+def test_commonAncestor():
+    n = copy.copy(BSTNodes)
+    myT = createMinimalBST(n)
+    myT.addParents(myT.root)
+
+    assert commonAncestor(myT.root, myT.root.left.left, myT.root.left.right) \
+        is myT.root.left
+
+    assert commonAncestor(myT.root, myT.root.left.left, myT.root.right.right) \
     is myT.root
