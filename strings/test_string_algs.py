@@ -114,6 +114,8 @@ def test_palindrome_permutation():
     assert is_palindrome_permutation(str5)
     assert is_palindrome_permutation(str6)
     assert is_palindrome_permutation(str7)
+    assert not is_palindrome_permutation('')
+    assert not is_palindrome_permutation('justaphrase')
 
 
 def test_one_away():
@@ -138,6 +140,8 @@ def test_one_away():
     assert one_away('evennn', 'evennil')
     assert one_away('evennn', 'evennil')
     assert one_away('evennn', 'oddnot')
+    assert not one_away('noteven', 'closeeeeeee')
+    assert not one_away('one', 'three')
     
 def test_string_compression():
     string1 = 'aabcccccaaa'

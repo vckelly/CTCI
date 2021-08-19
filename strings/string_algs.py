@@ -139,9 +139,7 @@ def is_unique_ascii(str_input):
 def naive_is_permutation(string1, string2):
     list1 = sorted([i for i in string1])
     list2 = sorted([j for j in string2])
-    if list1 == list2:
-        return True
-    return False
+    return list1 == list2
 
 def is_permutation(string1, string2):
     if len(string1) != len(string2):
@@ -160,7 +158,6 @@ def is_permutation(string1, string2):
 
 def URLify(string1, length):
     #CTCI example uses string index assignment, not possible in Python
-    new_index = len(string1)
     res_str = [char for char in string1]
     for i in reversed(range(length)):
         if string1[i] == ' ':
@@ -230,34 +227,23 @@ def is_palindrome_permutation(string1):
     #5. If odd, one character should appear an odd number of times. 
     #6. All other characters should appear an even number of times
     
+    if not string1: 
+        return False
     if len(string1) == 1:
         return True
         
-    string1 = string1.strip()
-    len_string = len(string1)
-    hash_t = HashTable()
-    for i in range(len_string):
-        hash_t.insert(string1[i], string1.count(string1[i]))
-    
-    if len_string % 2 == 0:
-        for item in hash_t.get_data():
-            for item2 in item:
-                if item2[1] % 2 != 0:
-                    return False
-    
-        return True
-    
-    else:
-        odd_count = False
-        for item in hash_t.get_data():
-            for item2 in item:
-                if item2[1] % 2 != 0 and not odd_count:
-                    odd_count = True
-                
-                elif item2[1] % 2 != 0:
-                    return False
-                
-        return True 
+    odd_count = 0
+    char_list = [0 for i in range(128)]
+
+    for ch in string1:
+        char_ascii_value = ord(ch)
+        char_list[char_ascii_value] += 1
+        if char_list[char_ascii_value] % 2 != 0: 
+            odd_count += 1
+        else: 
+            odd_count -= 1
+
+    return odd_count <= 1 
                 
     raise ValueError("Something went wrong!")
             
@@ -268,34 +254,24 @@ def one_away(string1, string2):
     if string1 == string2:
         return True
     
-    hash1 = HashTable()
-    for item in range(len(string1)):
-         assert hash1.insert(string1[item], string1.count(string1[item]))
+    if abs(len(string1) - len(string2)) > 1: 
+        return False
     
-    hash2 = HashTable()
-    for item2 in range(len(string2)):
-        assert hash2.insert(string2[item2], string2.count(string2[item2]))
+    char_list = [0 for i in range(128)]
+
+    for ch in string1:
+        val = ord(ch)
+        char_list[val] += 1
     
-    one_off = False
+    for ch2 in string2: 
+        val = ord(ch2)
+        char_list[val] -= 1
     
-    for hash_idx in hash1.get_data():
-        for i in range(len(hash_idx)):
-            #if same characters in each string are off by 1
-            #and no other character pairs have been identified as
-            #being "one off", switch boolean to indicate such a pair
-            #has been found
-            if abs(hash1.get(hash_idx[i][0]) - hash2.get(hash_idx[i][0])) == 1 \
-            and not one_off:
-                one_off = True
-            
-            #if there is a "one off" pair identified and it is not the first
-            #such pair to be found, return False
-            elif abs(hash1.get(hash_idx[i][0]) - hash2.get(hash_idx[i][0])) > 0 \
-            and one_off:
-                return False
-            
+    if not abs(sum(char_list)) <= 1:
+        return False
+
     return True
-    
+
 def string_compression(string1):
 
     string1 = string1.strip()
@@ -313,11 +289,10 @@ def string_compression(string1):
             result_list.append((string1[index], count))
             
         else:
-            for j in range(index+1, len(string1)):
-                if string1[index] == string1[j]:
-                    count += 1
-                else:
-                    break
+            j = index + 1
+            while j < len(string1) and string1[index] == string1[j]:
+                j += 1
+                count += 1
             result_list.append((string1[index], count))
             
         index += count
@@ -391,7 +366,8 @@ def rotate_matrix(matrix):
             
     for i in range(len(matrix)):                
         print(matrix[i])
-        
+    
+    return matrix
     
 def main():
     myStr = "hello"

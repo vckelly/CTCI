@@ -160,10 +160,6 @@ class BSTree(object):
             node.right.parent = node
             self.addParents(node.right)
 
-
-
-
-
 class AVLTree(object):
     def __init__(self, data=None, root=None):
         if root:
@@ -335,4 +331,5 @@ def BFS(root):
         for n in r.neighbors:
             if not n.visited:
                 q.add(n)
+
 

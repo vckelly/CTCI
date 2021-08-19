@@ -1,3 +1,6 @@
+from _typeshed import IdentityFunction
+from trees.test_trees import test_isBalanced
+from typing import TYPE_CHECKING
 from .trees import BSNode, AVLNode, Graph, GraphNode, Tree, BSTree, AVLTree, Queue, \
                    inOrderTraversal, preOrderTraversal, postOrderTraversal, visit,\
                    DFS, BFS
@@ -206,3 +209,7 @@ def covers(root, p):
     if root is p:
         return True
     return covers(root.left, p) or covers(root.right, p)
+
+def BSTSequences(tree):     
+    pass
+
