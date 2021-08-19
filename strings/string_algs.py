@@ -293,7 +293,7 @@ def string_compression(string1):
             while j < len(string1) and string1[index] == string1[j]:
                 j += 1
                 count += 1
-            result_list.append((string1[index], count))
+            result_list.append((string1[index], j-index))
             
         index += count
         

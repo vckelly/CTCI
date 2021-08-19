@@ -155,6 +155,9 @@ def test_string_compression():
     string3 = 'abc'
     assert string_compression(string3) \
     == string3
+
+    assert string_compression('zzzweeeea') \
+    == 'z3w1e4a1'
     
 def test_matrix_zero():
     matrix = [[1, 2, 3, 4],
@@ -191,10 +194,17 @@ def test_rotate_matrix():
               [1, 2, 3, 4],
               [1, 2, 3, 4],
               [1, 2, 3, 4]]
-              
-    res = [[2, 3, 4, 1],
-           [4, 2, 2, 1],
-           [4, 3, 3, 1],
-           [4, 2, 3, 4]]
+
+    res1 = [[4, 3, 2, 1],
+            [4, 2, 2, 1],
+            [4, 3, 3, 1],
+            [4, 4, 3, 2]]
+
+    res2 = [[1, 1, 1, 1],
+           [2, 2, 3, 2],
+           [3, 2, 3, 3],
+           [4, 4, 4, 4]]
     
-    assert rotate_matrix(matrix2) == res
+    
+    assert rotate_matrix(matrix2) == res2
+    assert rotate_matrix(matrix) == res1
